@@ -23,7 +23,7 @@ const SCENARIOS = {
     targetEv: 15,
     image: '/scenes/bright-outdoor.webp',
     gradient: 'from-amber-300 via-orange-200 to-sky-300',
-    description: 'Midday outdoor scene with lots of light.',
+    description: 'Midday outdoor scene with clear, direct sunlight.',
   },
   overcast: {
     label: 'Overcast walk',
@@ -155,7 +155,7 @@ export default function ExposureSimulatorPage() {
           </div>
           <p className="text-sm text-slate-600">{scenario.description}</p>
 
-          <div className="relative h-80 overflow-hidden rounded-lg">
+          <div className="relative h-95 overflow-hidden rounded-lg">
             {shouldUseGradientFallback ? (
               <div
                 className={[
@@ -189,58 +189,154 @@ export default function ExposureSimulatorPage() {
           </div>
         </article>
 
-        <article className="space-y-4 rounded-xl border border-slate-200 bg-white p-4 shadow-sm">
-          <h2 className="text-lg font-semibold">Camera settings</h2>
+        <article className="space-y-6 rounded-xl border border-slate-200 bg-white p-6 shadow-sm">
+          <h2 className="text-lg font-semibold text-slate-900">Camera settings</h2>
 
-          <label className="block space-y-2">
-            <span className="text-sm font-medium text-slate-700">
-              Aperture: f/{aperture}
-            </span>
-            <input
-              type="range"
-              min="0"
-              max={String(APERTURES.length - 1)}
-              value={apertureIndex}
-              onChange={(event) => setApertureIndex(Number(event.target.value))}
-              className="w-full"
-            />
-          </label>
+          <style>{`
+            input[type="range"].accent-blue::-webkit-slider-thumb {
+              accent-color: rgb(59, 130, 246);
+            }
+            input[type="range"].accent-blue::-moz-range-thumb {
+              background-color: rgb(59, 130, 246);
+              border-color: rgb(59, 130, 246);
+            }
+            input[type="range"].accent-amber::-webkit-slider-thumb {
+              accent-color: rgb(217, 119, 6);
+            }
+            input[type="range"].accent-amber::-moz-range-thumb {
+              background-color: rgb(217, 119, 6);
+              border-color: rgb(217, 119, 6);
+            }
+            input[type="range"].accent-purple::-webkit-slider-thumb {
+              accent-color: rgb(147, 51, 234);
+            }
+            input[type="range"].accent-purple::-moz-range-thumb {
+              background-color: rgb(147, 51, 234);
+              border-color: rgb(147, 51, 234);
+            }
+          `}</style>
 
-          <label className="block space-y-2">
-            <span className="text-sm font-medium text-slate-700">
-              Shutter: {shutter.label}
-            </span>
-            <input
-              type="range"
-              min="0"
-              max={String(SHUTTER_SPEEDS.length - 1)}
-              value={shutterIndex}
-              onChange={(event) => setShutterIndex(Number(event.target.value))}
-              className="w-full"
-            />
-          </label>
+          <div className="space-y-4">
+            <div className="space-y-3">
+              <div className="flex items-center justify-between text-sm">
+                <div className="flex items-center gap-2 text-slate-700">
+                  <span className="text-lg">☀️</span>
+                  <span className="text-slate-600">Slower</span>
+                  <span className="text-slate-500">←</span>
+                </div>
+                <span className="font-semibold text-slate-900">Shutter Speed</span>
+                <div className="flex items-center gap-2 text-slate-700">
+                  <span className="text-slate-500">→</span>
+                  <span className="text-slate-600">Faster</span>
+                  <span className="text-lg">🌙</span>
+                </div>
+              </div>
+              <input
+                type="range"
+                min="0"
+                max={String(SHUTTER_SPEEDS.length - 1)}
+                value={shutterIndex}
+                onChange={(event) => setShutterIndex(Number(event.target.value))}
+                className="w-full cursor-pointer accent-blue"
+              />
+              <div className="flex items-center justify-between text-xs text-slate-500">
+                <span>1/2</span>
+                <span>1/4</span>
+                <span>1/8</span>
+                <span>1/15</span>
+                <span>1/30</span>
+                <span>1/60</span>
+                <span>1/125</span>
+                <span>1/250</span>
+                <span>1/500</span>
+                <span>1/1000</span>
+                <span>1/2000</span>
+              </div>
+              <div className="text-center text-sm font-semibold text-blue-400">{shutter.label}</div>
+            </div>
 
-          <label className="block space-y-2">
-            <span className="text-sm font-medium text-slate-700">ISO: {iso}</span>
-            <input
-              type="range"
-              min="0"
-              max={String(ISOS.length - 1)}
-              value={isoIndex}
-              onChange={(event) => setIsoIndex(Number(event.target.value))}
-              className="w-full"
-            />
-          </label>
+            <div className="space-y-3">
+              <div className="flex items-center justify-between text-sm">
+                <div className="flex items-center gap-2 text-slate-700">
+                  <span className="text-lg">💡</span>
+                  <span className="text-slate-600">Wider</span>
+                  <span className="text-slate-500">←</span>
+                </div>
+                <span className="font-semibold text-slate-900">F-Stop / Aperture</span>
+                <div className="flex items-center gap-2 text-slate-700">
+                  <span className="text-slate-500">→</span>
+                  <span className="text-slate-600">Narrower</span>
+                  <span className="text-lg">⊙</span>
+                </div>
+              </div>
+              <input
+                type="range"
+                min="0"
+                max={String(APERTURES.length - 1)}
+                value={apertureIndex}
+                onChange={(event) => setApertureIndex(Number(event.target.value))}
+                className="w-full cursor-pointer accent-amber"
+              />
+              <div className="flex items-center justify-between text-xs text-slate-500">
+                <span>f/1.4</span>
+                <span>f/2</span>
+                <span>v2.8</span>
+                <span>f/4.0</span>
+                <span>f/5.6</span>
+                <span>f/8</span>
+                <span>f/11</span>
+                <span>f/16</span>
+                <span>f/22</span>
+                <span>f/32</span>
+                <span>f/64</span>
+              </div>
+              <div className="text-center text-sm font-semibold text-amber-400">f/{aperture}</div>
+            </div>
+
+            <div className="space-y-3">
+              <div className="flex items-center justify-between text-sm">
+                <div className="flex items-center gap-2 text-slate-700">
+                  <span className="text-lg">🌙</span>
+                  <span className="text-slate-600">Less Sensitive</span>
+                  <span className="text-slate-500">←</span>
+                </div>
+                <span className="font-semibold text-slate-900">ISO</span>
+                <div className="flex items-center gap-2 text-slate-700">
+                  <span className="text-slate-500">→</span>
+                  <span className="text-slate-600">More Sensitive</span>
+                  <span className="text-lg">✨</span>
+                </div>
+              </div>
+              <input
+                type="range"
+                min="0"
+                max={String(ISOS.length - 1)}
+                value={isoIndex}
+                onChange={(event) => setIsoIndex(Number(event.target.value))}
+                className="w-full cursor-pointer accent-purple"
+              />
+              <div className="flex items-center justify-between text-xs text-slate-500">
+                <span>50</span>
+                <span>100</span>
+                <span>200</span>
+                <span>400</span>
+                <span>800</span>
+                <span>1600</span>
+                <span>3200</span>
+              </div>
+              <div className="text-center text-sm font-semibold text-purple-400">ISO {iso}</div>
+            </div>
+          </div>
 
           <div className="grid gap-2 rounded-lg bg-slate-100 p-3 text-sm text-slate-700">
             <p>
-              Target EV for scene: <span className="font-semibold">{scenario.targetEv}</span>
+              Target EV for scene: <span className="font-semibold text-slate-900">{scenario.targetEv}</span>
             </p>
             <p>
-              Your adjusted EV: <span className="font-semibold">{computed.adjustedEv.toFixed(1)}</span>
+              Your adjusted EV: <span className="font-semibold text-slate-900">{computed.adjustedEv.toFixed(1)}</span>
             </p>
             <p>
-              Difference: <span className="font-semibold">{computed.deltaEv.toFixed(1)} EV</span>
+              Difference: <span className="font-semibold text-slate-900">{computed.deltaEv.toFixed(1)} EV</span>
             </p>
           </div>
         </article>
