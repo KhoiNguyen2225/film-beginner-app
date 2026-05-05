@@ -19,32 +19,37 @@ const ISOS = [100, 200, 400, 800, 1600, 3200, 6400]
 
 const SCENARIOS = {
   brightStreet: {
-    label: 'Bright street',
+    label: 'Bright outdoor',
     targetEv: 15,
+    image: '/scenes/bright-outdoor.webp',
     gradient: 'from-amber-300 via-orange-200 to-sky-300',
     description: 'Midday outdoor scene with lots of light.',
   },
   overcast: {
     label: 'Overcast walk',
     targetEv: 12,
+    image: '/scenes/overcast-walk.jpg',
     gradient: 'from-slate-300 via-slate-200 to-cyan-200',
     description: 'Cloudy day with soft, even light.',
   },
   partlyCloudy: {
     label: 'Partly cloudy',
     targetEv: 13,
+    image: '/scenes/partly-cloudy.jpg',
     gradient: 'from-blue-300 via-sky-200 to-slate-100',
     description: 'Sun breaks through clouds with shifting contrast.',
   },
   indoorCafe: {
     label: 'Indoor cafe',
     targetEv: 8,
+    image: '/scenes/indoor-cafe.jpg',
     gradient: 'from-amber-900 via-amber-700 to-orange-500',
     description: 'Warm interior light, but much dimmer than outdoors.',
   },
   nightStreet: {
     label: 'Night street',
     targetEv: 4,
+    image: '/scenes/night-street.jpg',
     gradient: 'from-slate-900 via-indigo-900 to-blue-900',
     description: 'Low-light scene with mixed practical lighting.',
   },
@@ -86,11 +91,13 @@ export default function ExposureSimulatorPage() {
   const [apertureIndex, setApertureIndex] = useState(4)
   const [shutterIndex, setShutterIndex] = useState(4)
   const [isoIndex, setIsoIndex] = useState(0)
+  const [imageLoadFailed, setImageLoadFailed] = useState({})
 
   const aperture = APERTURES[apertureIndex]
   const shutter = SHUTTER_SPEEDS[shutterIndex]
   const iso = ISOS[isoIndex]
   const scenario = SCENARIOS[scenarioKey]
+  const shouldUseGradientFallback = !scenario.image || imageLoadFailed[scenarioKey]
 
   const computed = useMemo(() => {
     const evAtIso100 = Math.log2((aperture * aperture) / shutter.seconds)
@@ -148,18 +155,30 @@ export default function ExposureSimulatorPage() {
           </div>
           <p className="text-sm text-slate-600">{scenario.description}</p>
 
-          <div
-            className={[
-              'relative h-52 overflow-hidden rounded-lg bg-gradient-to-br',
-              scenario.gradient,
-            ].join(' ')}
-          >
-            <div
-              className="absolute inset-0"
-              style={{
-                filter: `brightness(${computed.brightness}) blur(${computed.blurPx}px)`,
-              }}
-            />
+          <div className="relative h-80 overflow-hidden rounded-lg">
+            {shouldUseGradientFallback ? (
+              <div
+                className={[
+                  'absolute inset-0 bg-gradient-to-br',
+                  scenario.gradient,
+                ].join(' ')}
+                style={{
+                  filter: `brightness(${computed.brightness}) blur(${computed.blurPx}px)`,
+                }}
+              />
+            ) : (
+              <img
+                src={scenario.image}
+                alt={`${scenario.label} scene`}
+                className="absolute inset-0 h-full w-full object-cover"
+                style={{
+                  filter: `brightness(${computed.brightness}) blur(${computed.blurPx}px)`,
+                }}
+                onError={() => {
+                  setImageLoadFailed((prev) => ({ ...prev, [scenarioKey]: true }))
+                }}
+              />
+            )}
             <div
               className="absolute inset-0 bg-[radial-gradient(circle_at_10%_20%,rgba(255,255,255,0.2)_0,rgba(255,255,255,0)_35%),repeating-radial-gradient(circle_at_center,rgba(0,0,0,0.08)_0,rgba(0,0,0,0.08)_1px,transparent_1px,transparent_3px)]"
               style={{ opacity: computed.grainOpacity }}
