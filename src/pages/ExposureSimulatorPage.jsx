@@ -126,7 +126,7 @@ export default function ExposureSimulatorPage() {
   return (
     <section className="space-y-6">
       <div className="space-y-2">
-        <h1 className="text-3xl font-bold">Exposure Triangle Simulator</h1>
+        <h1 className="text-4xl font-bold">Exposure Triangle Simulator</h1>
         <p className="text-slate-700">
           Pick a scene, adjust aperture, shutter speed, and ISO, then observe
           how exposure and image character change.
