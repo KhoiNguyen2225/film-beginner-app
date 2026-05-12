@@ -2,7 +2,6 @@ import { useMemo, useState } from 'react'
 
 const APERTURES = [1.4, 2, 2.8, 4, 5.6, 8, 11, 16, 22]
 const SHUTTER_SPEEDS = [
-  { label: '1/2000', seconds: 1 / 2000 },
   { label: '1/1000', seconds: 1 / 1000 },
   { label: '1/500', seconds: 1 / 500 },
   { label: '1/250', seconds: 1 / 250 },
@@ -239,18 +238,19 @@ export default function ExposureSimulatorPage() {
                 onChange={(event) => setShutterIndex(Number(event.target.value))}
                 className="w-full cursor-pointer accent-blue"
               />
-              <div className="flex items-center justify-between text-xs text-slate-500">
-                <span>1/2</span>
-                <span>1/4</span>
-                <span>1/8</span>
-                <span>1/15</span>
-                <span>1/30</span>
-                <span>1/60</span>
-                <span>1/125</span>
-                <span>1/250</span>
-                <span>1/500</span>
-                <span>1/1000</span>
-                <span>1/2000</span>
+              <div className="relative w-full h-6">
+                {SHUTTER_SPEEDS.map((s, i) => {
+                  const left = (i / (SHUTTER_SPEEDS.length - 1)) * 100
+                  return (
+                    <span
+                      key={s.label}
+                      className="absolute bottom-0 -translate-x-1/2 text-xs text-slate-500 whitespace-nowrap"
+                      style={{ left: `${left}%` }}
+                    >
+                      {s.label}
+                    </span>
+                  )
+                })}
               </div>
               <div className="text-center text-sm font-semibold text-blue-400">{shutter.label}</div>
             </div>
@@ -277,18 +277,19 @@ export default function ExposureSimulatorPage() {
                 onChange={(event) => setApertureIndex(Number(event.target.value))}
                 className="w-full cursor-pointer accent-amber"
               />
-              <div className="flex items-center justify-between text-xs text-slate-500">
-                <span>f/1.4</span>
-                <span>f/2</span>
-                <span>v2.8</span>
-                <span>f/4.0</span>
-                <span>f/5.6</span>
-                <span>f/8</span>
-                <span>f/11</span>
-                <span>f/16</span>
-                <span>f/22</span>
-                <span>f/32</span>
-                <span>f/64</span>
+              <div className="relative w-full h-6">
+                {APERTURES.map((a, i) => {
+                  const left = (i / (APERTURES.length - 1)) * 100
+                  return (
+                    <span
+                      key={a}
+                      className="absolute bottom-0 -translate-x-1/2 text-xs text-slate-500 whitespace-nowrap"
+                      style={{ left: `${left}%` }}
+                    >
+                      f/{a}
+                    </span>
+                  )
+                })}
               </div>
               <div className="text-center text-sm font-semibold text-amber-400">f/{aperture}</div>
             </div>
@@ -315,14 +316,19 @@ export default function ExposureSimulatorPage() {
                 onChange={(event) => setIsoIndex(Number(event.target.value))}
                 className="w-full cursor-pointer accent-purple"
               />
-              <div className="flex items-center justify-between text-xs text-slate-500">
-                <span>50</span>
-                <span>100</span>
-                <span>200</span>
-                <span>400</span>
-                <span>800</span>
-                <span>1600</span>
-                <span>3200</span>
+              <div className="relative w-full h-6">
+                {ISOS.map((i, idx) => {
+                  const left = (idx / (ISOS.length - 1)) * 100
+                  return (
+                    <span
+                      key={i}
+                      className="absolute bottom-0 -translate-x-1/2 text-xs text-slate-500 whitespace-nowrap"
+                      style={{ left: `${left}%` }}
+                    >
+                      {i}
+                    </span>
+                  )
+                })}
               </div>
               <div className="text-center text-sm font-semibold text-purple-400">ISO {iso}</div>
             </div>
