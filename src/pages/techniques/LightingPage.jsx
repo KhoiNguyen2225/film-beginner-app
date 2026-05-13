@@ -82,23 +82,23 @@ export default function LightingPage() {
 
   return (
     <section className="space-y-6 px-4 text-left">
-      <h1 className="text-4xl font-bold">Lighting</h1>
-      <p className="max-w-3xl text-justify text-slate-700">Techniques for using light creatively and avoiding exposure pitfalls.</p>
+      <h1 className="font-serif text-4xl font-bold">Lighting</h1>
+      <p className="max-w-3xl text-justify text-slate-700">Light is everything. More than your camera, more than your lens—it's light that makes a photo sing. Let me show you a couple of moves that'll make you see light differently.</p>
 
       <div className="space-y-6">
         <div className="mx-auto max-w-3xl">
-          <h2 className="text-2xl font-semibold">Backlighting</h2>
-          <p className="mt-2 text-justify text-slate-600">Place the light source behind your subject to create rim light and separation.</p>
-          <p className="mt-2 text-justify text-sm text-slate-700"><strong>Tip:</strong> Golden hour backlight produces warm rim tones—try shooting then.</p>
+          <h2 className="font-serif text-2xl font-semibold">Backlighting</h2>
+          <p className="mt-2 text-justify text-slate-600">Okay, so most people think you should have the light behind you, right? Wrong. Put the light behind your subject sometimes. It creates this beautiful outline—called rim light—that separates them from the background. It feels three-dimensional in a way front-lit photos just don't.</p>
+          <p className="mt-2 text-justify text-sm text-slate-700"><strong>The magic moment:</strong> Golden hour (sunrise or sunset) is where backlighting looks absolutely gorgeous. The light is warm, low, and it just glows. Go out during that hour and position your subject between you and the sun. Thank me later.</p>
           <div className="mt-4">
             <Carousel images={backlightingGallery} />
           </div>
         </div>
 
         <div className="mx-auto max-w-3xl">
-          <h2 className="text-2xl font-semibold">Silhouettes</h2>
-          <p className="mt-2 text-justify text-slate-600">Expose for a bright background to render your subject as a dark shape for graphic impact.</p>
-          <p className="mt-2 text-justify text-sm text-slate-700"><strong>Tip:</strong> Choose subjects with recognizable outlines (hats, profiles, trees).</p>
+          <h2 className="font-serif text-2xl font-semibold">Silhouettes</h2>
+          <p className="mt-2 text-justify text-slate-600">Want something dramatic? Expose for the bright background and let your subject become a dark shape. It's graphic, it's bold, and it works because you're not distracted by details—you're just looking at a shape.</p>
+          <p className="mt-2 text-justify text-sm text-slate-700"><strong>Pro tip:</strong> Choose subjects with interesting outlines. A person in profile, a tree with unique branches, a person wearing a hat. The silhouette only works if the shape tells a story on its own.</p>
           <div className="mt-4">
             <Carousel images={silhouettesGallery} />
           </div>

@@ -86,33 +86,33 @@ export default function CompositionPage() {
 
   return (
     <section className="space-y-6 px-4 text-left">
-      <h1 className="text-4xl font-bold">Composition</h1>
-      <p className="max-w-3xl text-justify text-slate-700">Fundamental framing and layout techniques to improve your shots.</p>
+      <h1 className="font-serif text-4xl font-bold">Composition</h1>
+      <p className="max-w-3xl text-justify text-slate-700">Here's the thing about composition—it's really just about deciding where to put things in your frame. Once you start thinking about it, you'll see it everywhere. Let me walk you through some simple tricks that'll make your photos feel more intentional.</p>
 
       <div className="space-y-6">
         <div className="mx-auto max-w-3xl">
-          <h2 className="text-2xl font-semibold">Rule of Thirds</h2>
-          <p className="mt-2 text-justify text-slate-600">Divide your frame into a 3×3 grid and place key subjects along the lines or intersections.</p>
-          <p className="mt-2 text-justify text-sm text-slate-700"><strong>When to use:</strong> Landscapes, portraits, street photography.</p>
-          <p className="mt-1 text-justify text-sm text-slate-700"><strong>Tip:</strong> Use your camera's grid overlay while composing.</p>
+          <h2 className="font-serif text-2xl font-semibold">Rule of Thirds</h2>
+          <p className="mt-2 text-justify text-slate-600">Imagine your frame divided into nine equal boxes, like a tic-tac-toe board. Instead of putting your subject dead center, place it along one of those lines or at the corners where they meet. Sounds weird, but it just feels better to your eye.</p>
+          <p className="mt-2 text-justify text-sm text-slate-700"><strong>Try it with:</strong> Landscapes where you want to show sky and ground, portraits where you're leaving some breathing room, even street scenes where the subject isn't the only interesting thing.</p>
+          <p className="mt-1 text-justify text-sm text-slate-700"><strong>Pro move:</strong> Most cameras have a grid overlay you can turn on in the viewfinder—it's literally there to help you with this.</p>
           <div className="mt-4">
             <Carousel images={rotGallery} />
           </div>
         </div>
 
         <div className="mx-auto max-w-3xl">
-          <h2 className="text-2xl font-semibold">Leading Lines</h2>
-          <p className="mt-2 text-justify text-slate-600">Use roads, rails, shadows or architectural lines to guide the viewer to your subject.</p>
-          <p className="mt-2 text-justify text-sm text-slate-700"><strong>When to use:</strong> Landscapes, architecture, street.</p>
+          <h2 className="font-serif text-2xl font-semibold">Leading Lines</h2>
+          <p className="mt-2 text-justify text-slate-600">You know how your eye naturally follows a path? Roads, train tracks, fence lines, shadows—anything that has direction. Use that. Point those lines at your subject and they'll guide whoever's looking at your photo right where you want them to look.</p>
+          <p className="mt-2 text-justify text-sm text-slate-700"><strong>Look for them in:</strong> A winding road leading to a house, architectural lines that point to a person, or even the edge of a shadow cutting across a landscape.</p>
           <div className="mt-4">
             <Carousel images={llGallery} />
           </div>
         </div>
 
         <div className="mx-auto max-w-3xl">
-          <h2 className="text-2xl font-semibold">Framing</h2>
-          <p className="mt-2 text-justify text-slate-600">Use foreground elements like windows, doorways, or branches to create a frame around your subject.</p>
-          <p className="mt-2 text-justify text-sm text-slate-700"><strong>When to use:</strong> Portraits and environmental shots.</p>
+          <h2 className="font-serif text-2xl font-semibold">Framing</h2>
+          <p className="mt-2 text-justify text-slate-600">Here's a subtle one that looks really cool: use something in the foreground—a window, a doorway, some branches, whatever—to create a frame within your frame around your actual subject. It adds depth and draws attention to what matters.</p>
+          <p className="mt-2 text-justify text-sm text-slate-700"><strong>Works great for:</strong> Portraits where you want to show someone in their environment, or any shot where you want to add that sense of looking into a scene rather than just at it.</p>
           <div className="mt-4">
             <Carousel images={frGallery} />
           </div>

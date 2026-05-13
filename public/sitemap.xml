@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>http://localhost:5173/</loc>
+  </url>
+  <url>
+    <loc>http://localhost:5173/simulator</loc>
+  </url>
+  <url>
+    <loc>http://localhost:5173/scenarios</loc>
+  </url>
+  <url>
+    <loc>http://localhost:5173/techniques/composition</loc>
+  </url>
+  <url>
+    <loc>http://localhost:5173/techniques/film-handling</loc>
+  </url>
+  <url>
+    <loc>http://localhost:5173/techniques/lighting</loc>
+  </url>
+  <url>
+    <loc>http://localhost:5173/techniques/motion-depth</loc>
+  </url>
+</urlset>

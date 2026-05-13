@@ -91,6 +91,12 @@ export default function ExposureSimulatorPage() {
   const [shutterIndex, setShutterIndex] = useState(4)
   const [isoIndex, setIsoIndex] = useState(0)
   const [imageLoadFailed, setImageLoadFailed] = useState({})
+  const [imageLoading, setImageLoading] = useState({})
+
+  const handleScenarioChange = (key) => {
+    setImageLoading((prev) => ({ ...prev, [key]: true }))
+    setScenarioKey(key)
+  }
 
   const aperture = APERTURES[apertureIndex]
   const shutter = SHUTTER_SPEEDS[shutterIndex]
@@ -125,8 +131,8 @@ export default function ExposureSimulatorPage() {
   return (
     <section className="space-y-6">
       <div className="space-y-2">
-        <h1 className="text-4xl font-bold">Exposure Triangle Simulator</h1>
-        <p className="text-slate-700">
+        <h1 className="font-serif text-4xl font-bold">Exposure Triangle Simulator</h1>
+        <p className="text-justify text-slate-700">
           Pick a scene, adjust aperture, shutter speed, and ISO, then observe
           how exposure and image character change.
         </p>
@@ -134,7 +140,7 @@ export default function ExposureSimulatorPage() {
 
       <div className="grid gap-4 md:grid-cols-2">
         <article className="space-y-4 rounded-xl border border-slate-200 bg-white p-4 shadow-sm">
-          <h2 className="text-lg font-semibold">Scene preset</h2>
+          <h2 className="font-serif text-lg font-semibold">Scene preset</h2>
           <div className="flex flex-wrap gap-2">
             {Object.entries(SCENARIOS).map(([key, value]) => (
               <button
@@ -146,13 +152,13 @@ export default function ExposureSimulatorPage() {
                     ? 'border-slate-900 bg-slate-900 text-white'
                     : 'border-slate-300 bg-white text-slate-700 hover:bg-slate-100',
                 ].join(' ')}
-                onClick={() => setScenarioKey(key)}
+                onClick={() => handleScenarioChange(key)}
               >
                 {value.label}
               </button>
             ))}
           </div>
-          <p className="text-sm text-slate-600">{scenario.description}</p>
+          <p className="text-justify text-sm text-slate-600">{scenario.description}</p>
 
           <div className="relative h-95 overflow-hidden rounded-lg">
             {shouldUseGradientFallback ? (
@@ -173,10 +179,22 @@ export default function ExposureSimulatorPage() {
                 style={{
                   filter: `brightness(${computed.brightness}) blur(${computed.blurPx}px)`,
                 }}
+                onLoad={() => {
+                  setImageLoading((prev) => ({ ...prev, [scenarioKey]: false }))
+                }}
                 onError={() => {
                   setImageLoadFailed((prev) => ({ ...prev, [scenarioKey]: true }))
+                  setImageLoading((prev) => ({ ...prev, [scenarioKey]: false }))
                 }}
               />
+            )}
+            {imageLoading[scenarioKey] && !shouldUseGradientFallback && (
+              <div className="absolute inset-0 flex items-center justify-center bg-black/30 backdrop-blur-sm">
+                <div className="flex flex-col items-center gap-2">
+                  <div className="h-8 w-8 animate-spin rounded-full border-3 border-slate-200 border-t-white" />
+                  <p className="text-justify text-xs font-semibold text-white">Loading scene...</p>
+                </div>
+              </div>
             )}
             <div
               className="absolute inset-0 bg-[radial-gradient(circle_at_10%_20%,rgba(255,255,255,0.2)_0,rgba(255,255,255,0)_35%),repeating-radial-gradient(circle_at_center,rgba(0,0,0,0.08)_0,rgba(0,0,0,0.08)_1px,transparent_1px,transparent_3px)]"
@@ -189,7 +207,7 @@ export default function ExposureSimulatorPage() {
         </article>
 
         <article className="space-y-6 rounded-xl border border-slate-200 bg-white p-6 shadow-sm">
-          <h2 className="text-lg font-semibold text-slate-900">Camera settings</h2>
+          <h2 className="font-serif text-lg font-semibold text-slate-900">Camera settings</h2>
 
           <style>{`
             input[type="range"].accent-blue::-webkit-slider-thumb {
@@ -349,7 +367,7 @@ export default function ExposureSimulatorPage() {
       </div>
 
       <article className="grid gap-3 rounded-xl border border-slate-200 bg-white p-4 text-sm shadow-sm md:grid-cols-3">
-        <p className="rounded-lg bg-slate-100 p-3 text-slate-700">
+        <p className="rounded-lg bg-slate-100 p-3 text-justify text-slate-700">
           <span className="block text-xs font-semibold uppercase tracking-wide text-slate-500">
             Depth of field
           </span>
@@ -357,7 +375,7 @@ export default function ExposureSimulatorPage() {
             {computed.dofText}
           </span>
         </p>
-        <p className="rounded-lg bg-slate-100 p-3 text-slate-700">
+        <p className="rounded-lg bg-slate-100 p-3 text-justify text-slate-700">
           <span className="block text-xs font-semibold uppercase tracking-wide text-slate-500">
             Motion rendering
           </span>
@@ -365,7 +383,7 @@ export default function ExposureSimulatorPage() {
             {computed.motionText}
           </span>
         </p>
-        <p className="rounded-lg bg-slate-100 p-3 text-slate-700">
+        <p className="rounded-lg bg-slate-100 p-3 text-justify text-slate-700">
           <span className="block text-xs font-semibold uppercase tracking-wide text-slate-500">
             Grain and noise
           </span>
