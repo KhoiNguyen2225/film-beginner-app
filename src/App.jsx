@@ -1,5 +1,6 @@
 import React, { Suspense, lazy, useState, useEffect } from 'react'
 import { BrowserRouter, NavLink, Route, Routes, useLocation } from 'react-router-dom'
+import { Analytics } from '@vercel/analytics/react'
 import mainLogo from './assets/main_logo.svg'
 
 const HomePage = lazy(() => import('./pages/HomePage'))
@@ -193,6 +194,7 @@ export default function App() {
           </Suspense>
         </main>
       </div>
+      <Analytics />
     </BrowserRouter>
   )
 }
