@@ -2,7 +2,7 @@ import React, { Suspense, lazy, useState, useEffect } from 'react'
 import { BrowserRouter, NavLink, Route, Routes, useLocation } from 'react-router-dom'
 import mainLogo from './assets/main_logo.svg'
 
-const HomePage = lazy(() => import('./pages/HomePage'))
+import HomePage from './pages/HomePage'
 const ExposureSimulatorPage = lazy(() => import('./pages/ExposureSimulatorPage'))
 const ScenariosPage = lazy(() => import('./pages/ScenariosPage'))
 const CompositionPage = lazy(() => import('./pages/techniques/CompositionPage'))
