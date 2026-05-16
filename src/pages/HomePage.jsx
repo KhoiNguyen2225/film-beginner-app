@@ -48,7 +48,7 @@ export default function HomePage() {
 
           <div className="space-y-6">
             <h1 className="font-serif text-5xl leading-none tracking-tight text-slate-950 sm:text-6xl lg:text-7xl">
-              Film photography, made welcoming for the next generation.
+              FirstRoll, made welcoming for the next generation.
             </h1>
             <p className="max-w-2xl text-justify text-lg leading-8 text-slate-700 sm:text-xl">
               This platform is a calm starting point for anyone curious about
