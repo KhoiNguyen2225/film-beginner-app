@@ -1,5 +1,11 @@
 import { useMemo, useState } from 'react'
 
+import brightOutdoor from '../assets/images/scenes/bright_outdoor.webp'
+import overcast from '../assets/images/scenes/overcast.webp'
+import partlyCloudy from '../assets/images/scenes/partly_cloudy.webp'
+import indoor from '../assets/images/scenes/indoor.webp'
+import night from '../assets/images/scenes/night.webp'
+
 const APERTURES = [1.4, 2, 2.8, 4, 5.6, 8, 11, 16, 22]
 const SHUTTER_SPEEDS = [
   { label: '1/1000', seconds: 1 / 1000 },
@@ -20,35 +26,35 @@ const SCENARIOS = {
   brightStreet: {
     label: 'Sunny',
     targetEv: 15,
-    image: '/scenes/bright_outdoor.webp',
+    image: brightOutdoor,
     gradient: 'from-amber-300 via-orange-200 to-sky-300',
     description: 'Midday outdoor scene with clear, direct sunlight.',
   },
   overcast: {
     label: 'Overcast',
     targetEv: 12,
-    image: '/scenes/overcast.webp',
+    image: overcast,
     gradient: 'from-slate-300 via-slate-200 to-cyan-200',
     description: 'Cloudy day with soft, even light.',
   },
   partlyCloudy: {
     label: 'Cloudy',
     targetEv: 13,
-    image: '/scenes/partly_cloudy.webp',
+    image: partlyCloudy,
     gradient: 'from-blue-300 via-sky-200 to-slate-100',
     description: 'Sun breaks through clouds with shifting contrast.',
   },
   indoorCafe: {
     label: 'Indoor',
     targetEv: 8,
-    image: '/scenes/indoor.webp',
+    image: indoor,
     gradient: 'from-amber-900 via-amber-700 to-orange-500',
     description: 'Warm interior light, but much dimmer than outdoors.',
   },
   nightStreet: {
     label: 'Night',
     targetEv: 4,
-    image: '/scenes/night.webp',
+    image: night,
     gradient: 'from-slate-900 via-indigo-900 to-blue-900',
     description: 'Low-light scene with mixed practical lighting.',
   },
@@ -231,32 +237,36 @@ export default function ExposureSimulatorPage() {
               background-color: rgb(147, 51, 234);
               border-color: rgb(147, 51, 234);
             }
+            /* Show labels only on screens >= 640px */
+            .label-strip span { display: none; }
+            @media (min-width: 640px) {
+              .label-strip span { display: inline-block; }
+            }
           `}</style>
 
           <div className="space-y-4">
             <div className="space-y-3">
               <div className="flex items-center justify-between text-sm">
                 <div className="flex items-center gap-2 text-slate-700">
-                  <span className="text-lg">☀️</span>
-                  <span className="text-slate-600">Slower</span>
-                  <span className="text-slate-500">←</span>
-                </div>
-                <span className="font-semibold text-slate-900">Shutter Speed</span>
-                <div className="flex items-center gap-2 text-slate-700">
-                  <span className="text-slate-500">→</span>
-                  <span className="text-slate-600">Faster</span>
-                  <span className="text-lg">🌙</span>
-                </div>
+                    <span className="text-slate-600">Faster</span>
+                    <span className="text-slate-500">←</span>
+                  </div>
+                  <span className="font-semibold text-slate-900">Shutter Speed</span>
+                  <div className="flex items-center gap-2 text-slate-700">
+                    <span className="text-slate-500">→</span>
+                    <span className="text-slate-600">Slower</span>
+                  </div>
               </div>
-              <input
-                type="range"
-                min="0"
-                max={String(SHUTTER_SPEEDS.length - 1)}
-                value={shutterIndex}
-                onChange={(event) => setShutterIndex(Number(event.target.value))}
-                className="w-full cursor-pointer accent-blue"
-              />
-              <div className="relative w-full h-6">
+              <div className="space-y-1">
+                <input
+                  type="range"
+                  min="0"
+                  max={String(SHUTTER_SPEEDS.length - 1)}
+                  value={shutterIndex}
+                  onChange={(event) => setShutterIndex(Number(event.target.value))}
+                  className="w-full cursor-pointer accent-blue"
+                />
+                <div className="relative w-full h-6 label-strip">
                 {SHUTTER_SPEEDS.map((s, i) => {
                   const left = (i / (SHUTTER_SPEEDS.length - 1)) * 100
                   return (
@@ -272,11 +282,11 @@ export default function ExposureSimulatorPage() {
               </div>
               <div className="text-center text-sm font-semibold text-blue-400">{shutter.label}</div>
             </div>
+            </div>
 
             <div className="space-y-3">
               <div className="flex items-center justify-between text-sm">
                 <div className="flex items-center gap-2 text-slate-700">
-                  <span className="text-lg">💡</span>
                   <span className="text-slate-600">Wider</span>
                   <span className="text-slate-500">←</span>
                 </div>
@@ -284,9 +294,9 @@ export default function ExposureSimulatorPage() {
                 <div className="flex items-center gap-2 text-slate-700">
                   <span className="text-slate-500">→</span>
                   <span className="text-slate-600">Narrower</span>
-                  <span className="text-lg">⊙</span>
                 </div>
               </div>
+              <div className="space-y-1">
               <input
                 type="range"
                 min="0"
@@ -295,7 +305,7 @@ export default function ExposureSimulatorPage() {
                 onChange={(event) => setApertureIndex(Number(event.target.value))}
                 className="w-full cursor-pointer accent-amber"
               />
-              <div className="relative w-full h-6">
+              <div className="relative w-full h-6 label-strip">
                 {APERTURES.map((a, i) => {
                   const left = (i / (APERTURES.length - 1)) * 100
                   return (
@@ -311,11 +321,11 @@ export default function ExposureSimulatorPage() {
               </div>
               <div className="text-center text-sm font-semibold text-amber-400">f/{aperture}</div>
             </div>
+            </div>
 
             <div className="space-y-3">
               <div className="flex items-center justify-between text-sm">
                 <div className="flex items-center gap-2 text-slate-700">
-                  <span className="text-lg">🌙</span>
                   <span className="text-slate-600">Less Sensitive</span>
                   <span className="text-slate-500">←</span>
                 </div>
@@ -323,9 +333,9 @@ export default function ExposureSimulatorPage() {
                 <div className="flex items-center gap-2 text-slate-700">
                   <span className="text-slate-500">→</span>
                   <span className="text-slate-600">More Sensitive</span>
-                  <span className="text-lg">✨</span>
                 </div>
               </div>
+              <div className="space-y-1">
               <input
                 type="range"
                 min="0"
@@ -334,7 +344,7 @@ export default function ExposureSimulatorPage() {
                 onChange={(event) => setIsoIndex(Number(event.target.value))}
                 className="w-full cursor-pointer accent-purple"
               />
-              <div className="relative w-full h-6">
+              <div className="relative w-full h-6 label-strip">
                 {ISOS.map((i, idx) => {
                   const left = (idx / (ISOS.length - 1)) * 100
                   return (
@@ -349,6 +359,7 @@ export default function ExposureSimulatorPage() {
                 })}
               </div>
               <div className="text-center text-sm font-semibold text-purple-400">ISO {iso}</div>
+            </div>
             </div>
           </div>
 
